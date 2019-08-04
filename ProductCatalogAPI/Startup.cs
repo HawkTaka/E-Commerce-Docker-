@@ -34,6 +34,20 @@ namespace ProductCatalogAPI
                     options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+
+            services.AddSwaggerGen(options =>
+            {
+                options.DescribeAllEnumsAsStrings();
+                options.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info
+                {
+                    Title = "E-Commerce Docker API",
+                    Version = "v1",
+                    Description = "The product Catalog Microservice HTTPS API is a CRUD api.",
+                    TermsOfService = "Terms of Service"
+                });
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,6 +61,13 @@ namespace ProductCatalogAPI
             {
                 app.UseHsts();
             }
+
+            app.UseSwagger()
+                .UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint($"/swagger/v1/swagger.json", "ProductCatalogAPI V1");
+                });
+
 
             app.UseHttpsRedirection();
             app.UseMvc();
