@@ -35,7 +35,8 @@ namespace ProductCatalogAPI.Data
                 .HasMaxLength(50);
 
             builder.Property(c => c.Price)
-                .IsRequired(true);
+                .IsRequired(true)
+                .HasColumnType("DECIMAL(18,2)");
 
             builder.Property(c => c.PictureUrl)
                 .IsRequired(false);
