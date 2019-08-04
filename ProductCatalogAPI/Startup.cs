@@ -28,7 +28,8 @@ namespace ProductCatalogAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<CatalogContext>
-                (options => options.UseSqlServer(Configuration["ConnectionString"]));
+                (options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
