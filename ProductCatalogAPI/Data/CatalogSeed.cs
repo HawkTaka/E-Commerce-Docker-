@@ -15,8 +15,7 @@ namespace ProductCatalogAPI.Data
 
         public static async Task SeedAsync(CatalogContext context)
         {
-            string procider = context.Database.ProviderName;
-            var connectionString = context.Database.GetDbConnection().ConnectionString;
+            context.Database.Migrate();
 
             if (!context.CatalogBrands.Any())
             {

@@ -29,9 +29,26 @@ namespace ProductCatalogAPI
         {
             services.Configure<CatalogSettings>(Configuration);
 
-            services.AddDbContext<CatalogContext>
-                (options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            //Build Connection string
+            var databaseServer = Configuration["DatabaseServer"];
+            var databaseName = Configuration["DatabaseName"];
+            var databaseUser = Configuration["DatabaseUser"];
+            var databasePassword = Configuration["DatabasePassword"];
+            var connectionString = String.Format("Data Source={0};Initial Catalog={1};Integrated Security=False;User ID={2};Password={3};MultipleActiveResultSets=True;", databaseServer, databaseName, databaseUser, databasePassword);
+
+            if (databaseServer != null)
+            {
+                services.AddDbContext<CatalogContext>
+                    (options =>
+                     options.UseSqlServer(connectionString));
+            }
+            else
+            {
+                services.AddDbContext<CatalogContext>
+                    (options =>
+                     options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            }
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
