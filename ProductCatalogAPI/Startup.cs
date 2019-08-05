@@ -34,7 +34,7 @@ namespace ProductCatalogAPI
             var databaseServer = Configuration["DatabaseServer"];
             var databaseName = Configuration["DatabaseName"];
             var databaseUser = Configuration["DatabaseUser"];
-            var databasePassword = Configuration["DatabasePassword"];
+            var databasePassword = Configuration["DatabaseUserPassword"];
             var connectionString = String.Format("Data Source={0};Initial Catalog={1};Integrated Security=False;User ID={2};Password={3};MultipleActiveResultSets=True;", databaseServer, databaseName, databaseUser, databasePassword);
 
             if (databaseServer != null)
