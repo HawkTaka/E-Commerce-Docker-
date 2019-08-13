@@ -29,9 +29,18 @@ namespace WebMVC.Infrastructure
 
         public async Task<string> GetStringAsync(string uri)
         {
-            var requestMessage = new HttpRequestMessage(HttpMethod.Get, uri);
-            var response = await _client.SendAsync(requestMessage);
-            return await response.Content.ReadAsStringAsync();
+            try
+            {
+              //  _client.BaseAddress = new Uri(uri);
+                var requestMessage = new HttpRequestMessage(HttpMethod.Get, uri);                
+                var response = await _client.SendAsync(requestMessage);
+                return await response.Content.ReadAsStringAsync();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
         public Task<HttpResponseMessage> PostAsync<T>(string uri, T item)

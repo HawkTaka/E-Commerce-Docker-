@@ -34,3 +34,18 @@ services:
          - SA_PASSWORD=ProductApi(!)
       networks:
          backend:
+
+   webmvc:
+      build:
+         context: .\WebMVC
+         dockerfile: Dockerfile
+      environment:
+         - APIServer=catalogapi
+         - ASPNETCORE_ENVIRONMENT=Development
+      container_name: webmvc
+      ports:
+         - "8080:80"
+      networks:
+         - frontend
+      depends_on:
+         - catalog

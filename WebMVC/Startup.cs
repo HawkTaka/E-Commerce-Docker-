@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebMVC.Infrastructure;
+using WebMVC.Services;
 
 namespace WebMVC
 {
@@ -32,7 +33,10 @@ namespace WebMVC
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.Configure<AppSettings>(Configuration);
+
             services.AddSingleton<IHttpClient, CustomHttpClient>();
+            services.AddTransient<ICatalogService, CatalogService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -57,7 +61,7 @@ namespace WebMVC
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Catalog}/{action=Index}/{id?}");
             });
         }
     }
